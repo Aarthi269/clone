@@ -1,65 +1,66 @@
-function deepClone(obj, seen = new WeakMap()) {
-    if (obj === null || typeof obj !== "object") return obj;
+const users = [
+    { name: "Alice", email: "alice@example.com", age: 25, role: "admin" },
+    { name: "Bob", email: "bob@example.com", age: 30, role: "user" },
+];
 
-    // Handle circular references
-    if (seen.has(obj)) return seen.get(obj);
+const products = [
+    { name: "Laptop", inStock: true, price: 999, onSale: false },
+    { name: "Mouse", inStock: true, price: 25, onSale: true },
+    { name: "Keyboard", inStock: false, price: 75, onSale: false },
+];
 
-    // Handle Date
-    if (obj instanceof Date) return new Date(obj);
-
-    // Handle Array
-    if (Array.isArray(obj)) {
-        const arrClone = [];
-        seen.set(obj, arrClone);
-        obj.forEach((item) => arrClone.push(deepClone(item, seen)));
-        return arrClone;
-    }
-
-    // Handle Object
-    if (obj instanceof Object) {
-        const objClone = {};
-        seen.set(obj, objClone);
-        for (const key in obj) {
-            if (obj.hasOwnProperty(key)) {
-                objClone[key] = deepClone(obj[key], seen);
-            }
-        }
-        return objClone;
-    }
-
-    return obj;
+// Function definitions
+function doesValueExist(array, value) {
+    return array.includes(value);
 }
 
-// Test case 1: Simple Object
-const originalObj = {
-    name: "John",
-    age: 30,
-    address: {
-        street: "123 Main St",
-        city: "New York"
-    },
-    hobbies: ["reading", "coding"]
-};
+function findUserByEmail(users, email) {
+    return users.find(user => user.email === email);
+}
 
-const clonedObj = deepClone(originalObj);
-clonedObj.address.city = "Los Angeles";
-clonedObj.hobbies.push("traveling");
+function areAllItemsInStock(products) {
+    return products.every(product => product.inStock);
+}
 
-console.log("Original Object:", originalObj);
-console.log("Cloned Object:", clonedObj);
+function logEachItemWithIndex(array) {
+    array.forEach((item, index) => {
+        console.log(`${index}: ${item}`);
+    });
+}
 
-// Test case 2: Nested Objects with Arrays and Dates
-const complexObj = {
-    id: 101,
-    name: "Complex Object",
-    createdAt: new Date(),
-    tasks: [
-        { taskId: 1, taskName: "Task 1", dueDate: new Date() },
-        { taskId: 2, taskName: "Task 2", dueDate: new Date() }
-    ]
-};
+function getUsersAboveAge(users, age) {
+    return users.filter(user => user.age > age);
+}
 
-const clonedComplexObj = deepClone(complexObj);
-clonedComplexObj.tasks[0].taskName = "Updated Task 1";
-clonedComplexObj.createdAt.setFullYear(2025);
-clonedComplexObj.name = "Updated Complex Object";
+function capitalizeWords(words) {
+    return words.map(word => word.charAt(0).toUpperCase() + word.slice(1));
+}
+
+function sumCartTotal(products) {
+    return products.reduce((total, product) => total + product.price, 0);
+}
+
+function getProductNames(products) {
+    return products.map(product => product.name);
+}
+
+function isAnyProductOnSale(products) {
+    return products.some(product => product.onSale);
+}
+
+function getUsersByRole(users, role) {
+    return users.filter(user => user.role === role);
+}
+
+// Function calls
+console.log(doesValueExist(["apple", "banana"], "banana")); // true
+console.log(findUserByEmail(users, "alice@example.com")); // { name: "Alice", ... }
+console.log(areAllItemsInStock(products)); // false
+logEachItemWithIndex(["JS", "HTML", "CSS"]);
+
+console.log(getUsersAboveAge(users, 26)); // [ { name: "Bob", ... } ]
+console.log(capitalizeWords(["hello", "world"])); // ["Hello", "World"]
+console.log(sumCartTotal(products)); // 999 + 25 + 75 = 1099
+console.log(getProductNames(products)); // ["Laptop", "Mouse", "Keyboard"]
+console.log(isAnyProductOnSale(products)); // true
+console.log(getUsersByRole(users, "admin")); // [ { name: "Alice", ... } ]
