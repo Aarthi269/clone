@@ -9,7 +9,6 @@ const products = [
     { name: "Keyboard", inStock: false, price: 75, onSale: false },
 ];
 
-// Function definitions
 function doesValueExist(array, value) {
     return array.includes(value);
 }
@@ -52,15 +51,14 @@ function getUsersByRole(users, role) {
     return users.filter(user => user.role === role);
 }
 
-// Function calls
-console.log(doesValueExist(["apple", "banana"], "banana")); // true
-console.log(findUserByEmail(users, "alice@example.com")); // { name: "Alice", ... }
-console.log(areAllItemsInStock(products)); // false
+console.log(doesValueExist(["apple", "banana"], "banana")); 
+console.log(findUserByEmail(users, "alice@example.com")); 
+console.log(areAllItemsInStock(products)); 
 logEachItemWithIndex(["JS", "HTML", "CSS"]);
 
-console.log(getUsersAboveAge(users, 26)); // [ { name: "Bob", ... } ]
-console.log(capitalizeWords(["hello", "world"])); // ["Hello", "World"]
-console.log(sumCartTotal(products)); // 999 + 25 + 75 = 1099
-console.log(getProductNames(products)); // ["Laptop", "Mouse", "Keyboard"]
-console.log(isAnyProductOnSale(products)); // true
-console.log(getUsersByRole(users, "admin")); // [ { name: "Alice", ... } ]
+console.log(getUsersAboveAge(users, 26)); 
+console.log(capitalizeWords(["hello", "world"])); 
+console.log(sumCartTotal(products)); 
+console.log(getProductNames(products)); 
+console.log(isAnyProductOnSale(products)); 
+console.log(getUsersByRole(users, "admin"));
